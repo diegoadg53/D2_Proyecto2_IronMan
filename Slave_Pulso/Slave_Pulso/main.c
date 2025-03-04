@@ -18,14 +18,15 @@ volatile char buffer;
 
 #define slave1 0x20
 
+
 uint16_t rate[10]; 
 volatile int N = 0;
 int runningTotal = 0;                   // array to hold last ten IBI values
 volatile unsigned long sampleCounter = 0;          // used to determine pulse timing
 unsigned long lastBeatTime = 0;           // used to find IBI
-uint16_t P =540;                      // used to find peak in pulse wave, seeded
-uint16_t T = 540;                     // used to find trough in pulse wave, seeded
-uint16_t thresh = 540;                // used to find instant moment of heart beat, seeded
+uint16_t P = 530;                      // used to find peak in pulse wave, seeded
+uint16_t T = 530;                     // used to find trough in pulse wave, seeded
+uint16_t thresh = 530;                // used to find instant moment of heart beat, seeded
 uint8_t amp = 100;                   // used to hold amplitude of pulse waveform, seeded
 uint8_t firstBeat = 1;        // used to seed rate array so we startup with reasonable BPM
 uint8_t secondBeat = 0;      // used to seed rate array so we startup with reasonable BPM
@@ -115,9 +116,9 @@ int main(void)
 			}
 
 			if (N > 2500){                           // if 2.5 seconds go by without a beat
-				thresh = 512;                          // set thresh default
-				P = 540;                               // set P default
-				T = 540;                               // set T default
+				thresh = 530;                          // set thresh default
+				P = 530;                               // set P default
+				T = 530;                               // set T default
 				lastBeatTime = sampleCounter;          // bring the lastBeatTime up to date
 				firstBeat = 1;                      // set these to avoid noise
 				secondBeat = 0;                    // when we get the heartbeat back
