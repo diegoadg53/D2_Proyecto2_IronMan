@@ -15,6 +15,7 @@
 #include "Interrupt_Pulse/Interrupt_Pulse.h"
 #include "I2C_S/I2C_S.h"
 volatile char buffer;
+volatile uint32_t millis_counter = 0;
 
 #define slave1 0x20
 
@@ -127,7 +128,17 @@ int main(void)
 		}
 		//valor_BPM_t = itoa(BPM, cadena, 10);
 		//writetxtUART(valor_BPM_t);
-		
+		if ((BPM > 130)||(BPM<50)){
+			PORTD &= ~(1<<PORTD4);
+			PORTD |= (1<<PORTD5);
+			PORTD &= ~(1<<PORTD6);
+			PORTD |= (1<<PORTD7);
+		} else {
+			PORTD |= (1<<PORTD4);
+			PORTD &= ~(1<<PORTD5);
+			PORTD |= (1<<PORTD6);
+			PORTD &= ~(1<<PORTD7);
+		}
 		
     }
 }
@@ -186,7 +197,11 @@ void init_UART9600(void){
 }
 
 void setup(void){
-	DDRD |= (1<<DDD2);
+	//DDRD |= (1<<DDD2);
+	DDRD |= (1<<DDD4); // Verde
+	DDRD |= (1<<DDD5); //Rojo
+	DDRD |= (1<<DDD6); // Verde
+	DDRD |= (1<<DDD7); //Rojo
 	cli();
 	I2C_Slave_Init(slave1);
 	interruptSetup();

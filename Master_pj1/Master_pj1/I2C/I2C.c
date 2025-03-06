@@ -104,3 +104,4 @@ void I2C_Slave_Init(uint8_t adress){
 	TWAR=adress<<1;//DIRECCIÓN
 	TWCR=(1<<TWEA)|(1<<TWEN)|(1<<TWIE);//HABILITA INTERFAZ
 }
+
